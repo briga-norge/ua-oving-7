@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leksjon 6 — Lesetekster i farger</title>
+<style>
+  :root {
+    --website-blue:#0057B7; --website-blue-dark:#004494; --website-blue-pale:#EAF3FF;
+    --website-yellow:#FFD500; --website-yellow-pale:#FFF9D9; --website-teal:#0B8EA3;
+    --warm-page:#F4F2EC; --warm-card:#FFFFFF; --warm-card-2:#F8F6F0;
+    --ink:#073A73; --muted:#4D4D4D; --line:#8CB4E8;
+    --red:#C0392B; --green:#1E8449; --purple:#7B2D8E; --blue:#1565C0;
+    --header-font:Arial, Helvetica, sans-serif; --body-font:Arial, Helvetica, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body-font);color:var(--ink);background:var(--warm-page);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:30px 24px 60px}
+  header.intro{background:var(--website-blue);color:white;padding:36px 32px;border-radius:0 0 14px 14px;margin-bottom:28px;position:relative;overflow:hidden;box-shadow:0 3px 0 var(--website-yellow)}
+  header.intro::before{content:'';position:absolute;top:0;left:0;width:8px;height:50%;background:var(--website-teal)}
+  header.intro::after{content:'';position:absolute;top:50%;left:0;width:8px;height:50%;background:var(--website-yellow)}
+  header.intro .kicker{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--website-yellow);font-weight:700;margin-bottom:10px}
+  header.intro h1{font-size:38px;line-height:1.1;margin-bottom:8px}
+  header.intro .subtitle{font-style:italic;font-size:18px;color:rgba(255,255,255,.86);margin-bottom:20px}
+  header.intro .meta{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.76);border-top:1px solid rgba(255,255,255,.2);padding-top:14px}
+  header.intro .meta strong{color:var(--website-yellow);font-weight:700}
+  .lead-blurb{background:white;border-left:4px solid var(--website-blue);padding:18px 24px;border-radius:8px;margin-bottom:28px;font-style:italic;color:var(--ink);font-size:16px;line-height:1.6}
+  .lead-blurb strong{color:var(--website-blue);font-style:normal;font-weight:700}
+  .theory,.task,.vocab{background:white;border:1.5px solid var(--line);border-radius:12px;padding:26px 28px;margin-bottom:22px}
+  .theory h2,.vocab h2{font-size:26px;color:var(--ink);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--website-yellow)}
+  .theory h3,.vocab h3{font-size:19px;color:var(--website-blue);margin-top:20px;margin-bottom:10px}
+  .theory p,.vocab p{margin-bottom:10px;line-height:1.65}
+  .theory ul{margin:8px 0 12px 22px}.theory li{margin-bottom:6px;line-height:1.6}
+  .tip-mini{background:var(--website-yellow-pale);border-left:3px solid var(--website-yellow);padding:10px 14px;margin:12px 0;border-radius:0 6px 6px 0;font-size:14px}
+  .legend-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:16px 0}
+  .legend-card{border:2px solid var(--line);background:var(--warm-card-2);border-radius:10px;padding:14px 16px;min-height:92px}
+  .legend-card .q{font-weight:800;font-size:18px;margin-bottom:4px}.legend-card .no{font-size:13px;font-style:italic;color:var(--muted);margin-bottom:6px}.legend-card .ex{font-weight:700}
+  .legend-card.red{border-color:var(--red)}.legend-card.green{border-color:var(--green)}.legend-card.purple{border-color:var(--purple)}.legend-card.blue{border-color:var(--blue)}
+  .redtxt,.hvem{color:var(--red);font-weight:800}.greentxt,.hva{color:var(--green);font-weight:800}.purpletxt,.obj{color:var(--purple);font-weight:800}.bluetxt,.nar{color:var(--blue);font-weight:800}
+  .block-divider{background:var(--website-blue);color:white;border-radius:10px;padding:16px 24px;margin:36px 0 20px;box-shadow:0 3px 0 var(--website-yellow)}
+  .block-divider .label{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--website-yellow);font-weight:800;margin-bottom:4px}.block-divider h2{font-size:24px;line-height:1.2}
+  .task-header{display:flex;align-items:flex-start;gap:18px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .task-num{background:var(--website-yellow);color:#000;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;flex-shrink:0}
+  .task-title-box{flex:1}.task-title-box h2{font-size:21px;color:var(--ink);margin-bottom:4px;line-height:1.2}.task-title-box .uk-title{font-size:14px;color:var(--website-blue);font-style:italic}
+  .task-meta{display:flex;gap:12px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:6px;flex-wrap:wrap}.task-meta .pill{background:var(--website-yellow);color:#000;padding:3px 10px;border-radius:12px;font-weight:700}
+  .task-instruction{color:var(--ink);margin-bottom:14px;line-height:1.55;font-size:15px}.task-instruction .uk-inst{display:block;color:var(--website-blue);font-style:italic;font-size:14px;margin-top:2px}
+  .model{background:var(--warm-card-2);border-left:4px solid var(--website-yellow);border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:14px}.model .label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--website-blue);font-weight:800;margin-bottom:4px}.model .uk-text{font-weight:700;font-size:16px;color:var(--ink)}.model .no-text{font-style:italic;color:var(--muted);margin-top:3px}
+  .reading-card{background:var(--warm-card-2);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}.reading-card h3{font-size:21px;color:var(--website-blue);margin-bottom:6px}.reading-card .subtitle{font-style:italic;color:var(--muted);margin-bottom:12px}.reading-card p{font-size:18px;line-height:1.85;margin-bottom:10px}
+  .plain-text{background:white;border:1px dashed var(--line);border-radius:8px;padding:14px 16px;margin-top:14px}.plain-text p{font-size:17px;line-height:1.7}
+  .exercise{margin-top:10px}.ex-row{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}.ex-row:last-child{border-bottom:none}.ex-num{color:var(--website-blue);font-weight:800;font-size:14px;min-width:22px}.ex-prompt{flex:1;min-width:200px;font-size:16px;line-height:1.5}.uk{font-weight:700;color:var(--ink)}
+  input[type="text"]{border:none;border-bottom:2px solid var(--website-blue);background:transparent;font-size:16px;color:var(--ink);padding:4px 6px;min-width:130px;outline:none;transition:background .2s} input[type="text"]:focus{background:var(--website-yellow-pale);border-bottom-color:var(--website-yellow)} input.short{min-width:80px;max-width:120px} input.tiny{min-width:50px;max-width:70px;text-align:center} input.long{min-width:240px} input.xlong{min-width:300px;width:100%}
+  textarea{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:10px 12px;min-height:90px;font-family:var(--body-font);font-size:16px;color:var(--ink);outline:none} textarea:focus{border-color:var(--website-blue);background:var(--website-yellow-pale)}
+  table.task-table{width:100%;border-collapse:collapse;margin:10px 0;background:white} table.task-table th,table.task-table td{border:1px solid var(--line);padding:9px 11px;vertical-align:middle;text-align:left} table.task-table th{background:var(--website-blue-pale);color:var(--ink);font-size:14px}
+  .word-bank{background:var(--website-yellow-pale);border:1px dashed var(--website-yellow);border-radius:8px;padding:12px 14px;margin:10px 0;font-size:15px;line-height:1.9}.word-bank .pill{display:inline-block;background:white;border:1px solid var(--website-blue);color:var(--ink);border-radius:999px;padding:3px 10px;margin:2px;font-weight:700}
+
+  .audio-box{background:var(--website-blue-pale);border:1.5px solid var(--line);border-left:5px solid var(--website-yellow);border-radius:12px;padding:14px 16px;margin:14px 0 18px;color:var(--ink)}
+  .audio-box .audio-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--website-blue-dark);font-weight:800;margin-bottom:6px}
+  .audio-box p{font-size:14px;color:var(--ink);margin-bottom:10px;line-height:1.5}
+  .audio-box audio{width:100%;display:block}
+
+  .phonetics{display:grid;grid-template-columns:1fr 1fr;gap:12px}.phon-card{background:var(--warm-card-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}.phon-card h4{font-size:15px;color:var(--website-blue);margin-bottom:6px}.phon-card p{font-size:15px;line-height:1.55}
+  .answer-key-toggle{margin-top:14px;padding:8px 14px;background:white;border:1.5px solid var(--website-blue);color:var(--website-blue);border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}.answer-key-toggle:hover{background:var(--website-blue);color:white}.answer-key{display:none;margin-top:12px;padding:14px 18px;background:var(--website-blue-pale);border-left:3px solid var(--website-yellow);border-radius:0 6px 6px 0;font-size:14px;line-height:1.7;color:var(--ink)}.answer-key.shown{display:block}.answer-key strong{color:var(--website-blue-dark)}.answer-key code{background:white;padding:1px 6px;border-radius:3px;font-style:italic;font-family:var(--body-font)}
+  .vocab table{width:100%;border-collapse:collapse;background:white;margin-top:8px}.vocab th,.vocab td{border:1px solid var(--line);padding:8px 11px;text-align:left;font-size:14px}.vocab th{background:var(--website-blue-pale);color:var(--ink);font-weight:700}.vocab td.uk{font-weight:700;color:var(--ink)}
+  footer{margin-top:36px;padding:24px;background:var(--website-blue);color:white;border-radius:12px;text-align:center;border-top:8px solid var(--website-yellow)}footer .mantra{font-style:italic;font-size:18px;color:var(--website-yellow);margin-bottom:6px}footer p{font-size:13px;color:rgba(255,255,255,.85);line-height:1.6}
+  .floating-keyboard{position:fixed;right:18px;bottom:18px;z-index:9999}.keyboard-toggle{background:var(--website-blue);color:white;border:none;border-radius:24px;padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.18)}.keyboard-toggle:hover{background:var(--website-blue-dark)}.keyboard-panel{display:none;margin-top:10px;background:white;border:2px solid var(--website-blue);border-radius:14px;padding:12px;max-width:470px;box-shadow:0 8px 24px rgba(0,0,0,.18)}.keyboard-panel.open{display:block}.keyboard-help{font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.4}.keyboard-row{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap}.keyboard-row:last-child{margin-bottom:0}.keyboard-row button{min-width:34px;min-height:34px;border:1px solid var(--line);background:var(--website-yellow-pale);color:var(--ink);border-radius:8px;font-size:17px;font-weight:700;cursor:pointer}.keyboard-row button:hover{background:var(--website-yellow)}.keyboard-row button.keyboard-wide{min-width:72px;font-size:14px}
+  @media print{.floating-keyboard{display:none!important}.answer-key-toggle{display:none}.answer-key{display:none!important}.task,.theory,.block-divider{page-break-inside:avoid;box-shadow:none}body{background:white}}
+  @media (max-width:700px){.wrap{padding:16px 12px 40px}header.intro{padding:24px 20px}header.intro h1{font-size:28px}.task,.theory,.vocab{padding:20px 18px}.task-title-box h2{font-size:18px}.legend-grid,.phonetics{grid-template-columns:1fr}.floating-keyboard{left:10px;right:10px;bottom:10px}.keyboard-panel{max-width:100%;max-height:45vh;overflow-y:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="intro">
+  <div class="kicker">Leksjon 6 · selvstendig arbeid</div>
+  <h1>Читання в кольорах</h1>
+  <div class="subtitle">Дієслова · орудний відмінок · питання Де? Коли?</div>
+  <div class="meta"><span><strong>Tid:</strong> 60–90 minutter</span><span><strong>Fokus:</strong> lesing, forståelse, grammatikk, fonetikk</span></div>
+</header>
+
+<div class="lead-blurb">
+  Her jobber du med tre korte tekster fra norsk hverdag. Les først teksten i farger, svar på spørsmålene, finn grammatikkmønstre og øv uttale. Målet er å forstå <strong>hvem som gjør hva, hvor og når</strong>, og kjenne igjen instrumental: <strong>автобусом, трамваєм, ручкою, телефоном, з другом</strong>.
+</div>
+
+<section class="theory">
+  <h2>Метод кольорів · fargemetoden</h2>
+  <p>Vi leser setningen med spørsmål. Hver del får sin farge. Ikke oversett alt først. Finn strukturen: <strong>hvem?</strong> → <strong>hva gjør?</strong> → <strong>hva/hvem?</strong> → <strong>når/hvor/hvordan?</strong></p>
+  <div class="legend-grid">
+    <div class="legend-card red"><div class="q redtxt">ХТО?</div><div class="no">Hvem?</div><div class="ex">Анна · він · Марія</div></div>
+    <div class="legend-card green"><div class="q greentxt">ЩО РОБИТЬ?</div><div class="no">Hva skjer?</div><div class="ex">живе · працює · читає</div></div>
+    <div class="legend-card purple"><div class="q purpletxt">ЩО? КОГО?</div><div class="no">Hva? Hvem?</div><div class="ex">каву · книгу · українську</div></div>
+    <div class="legend-card blue"><div class="q bluetxt">КОЛИ? ДЕ? ЯК? ЧИМ? З КИМ?</div><div class="no">Når? Hvor? Hvordan? Med hva? Med hvem?</div><div class="ex">вранці · в Осло · автобусом · з другом</div></div>
+  </div>
+  <div class="tip-mini"><strong>Nytt i denne leksen:</strong> blå markerer også <span class="uk">чим?</span> og <span class="uk">з ким?</span>, fordi dette er en del av instrumental. Eksempel: <span class="hvem">Я</span> <span class="hva">їду</span> <span class="nar">автобусом</span>.</div>
+
+  <h3>Орудний відмінок · instrumental</h3>
+  <table class="task-table">
+    <tr><th>Питання</th><th>Модель</th><th>Приклади</th></tr>
+    <tr><td><span class="uk">Чим?</span></td><td>med hva? / hvordan?</td><td><span class="uk">автобусом, трамваєм, телефоном, ручкою, карткою</span></td></tr>
+    <tr><td><span class="uk">З ким?</span></td><td>med hvem?</td><td><span class="uk">з мамою, з другом, з колегою, з подругою</span></td></tr>
+    <tr><td><span class="uk">Ким працює?</span></td><td>jobber som hva?</td><td><span class="uk">вчителькою, кухарем</span></td></tr>
+  </table>
+  <div class="tip-mini">Lær først disse som faste modeller. Senere kan dere arbeide mer systematisk med hele kasussystemet.</div>
+
+  <h3>Як утворюється орудний відмінок?</h3>
+  <p>Орудний відмінок відповідає на питання <span class="uk">ким?</span> або <span class="uk">чим?</span>. У цих текстах він має три головні значення:</p>
+  <ul>
+    <li><strong>засіб / transport / redskap:</strong> <span class="uk">їду автобусом</span>, <span class="uk">пишу ручкою</span>, <span class="uk">плачу карткою</span>;</li>
+    <li><strong>разом з кимось:</strong> <span class="uk">говорю з колегою</span>, <span class="uk">вечеряю з другом</span>;</li>
+    <li><strong>професія після працювати:</strong> <span class="uk">працюю вчителькою</span>, <span class="uk">працює кухарем</span>.</li>
+  </ul>
+  <table class="task-table">
+    <tr><th>Називний відмінок</th><th>Орудний відмінок</th><th>Модель</th></tr>
+    <tr><td><span class="uk">автобус</span></td><td><span class="uk">автобусом</span></td><td>чоловічий рід: + <strong>-ом</strong></td></tr>
+    <tr><td><span class="uk">трамвай</span></td><td><span class="uk">трамваєм</span></td><td>-й → <strong>-єм</strong></td></tr>
+    <tr><td><span class="uk">телефон</span></td><td><span class="uk">телефоном</span></td><td>чоловічий рід: + <strong>-ом</strong></td></tr>
+    <tr><td><span class="uk">ручка</span></td><td><span class="uk">ручкою</span></td><td>жіночий рід: -а → <strong>-ою</strong></td></tr>
+    <tr><td><span class="uk">картка</span></td><td><span class="uk">карткою</span></td><td>-ка → <strong>-кою</strong></td></tr>
+    <tr><td><span class="uk">мама</span></td><td><span class="uk">з мамою</span></td><td>з + жіночий рід: <strong>-ою</strong></td></tr>
+    <tr><td><span class="uk">друг</span></td><td><span class="uk">з другом</span></td><td>з + чоловічий рід: <strong>-ом</strong></td></tr>
+    <tr><td><span class="uk">колега</span></td><td><span class="uk">з колегою</span></td><td>слово на -а: <strong>-ою</strong></td></tr>
+    <tr><td><span class="uk">вчителька</span></td><td><span class="uk">вчителькою</span></td><td>професія: <strong>-кою</strong></td></tr>
+    <tr><td><span class="uk">кухар</span></td><td><span class="uk">кухарем</span></td><td>після -р часто <strong>-ем</strong></td></tr>
+  </table>
+  <div class="tip-mini"><strong>Для цього уроку достатньо трьох питань:</strong> <span class="uk">чим?</span> автобусом / ручкою / карткою; <span class="uk">з ким?</span> з мамою / з другом; <span class="uk">ким?</span> вчителькою / кухарем.</div>
+
+  <h3>Дієслово: інфінітив і особова форма</h3>
+  <p><strong>Інфінітив</strong> — це початкова форма дієслова, форма зі словника. Українською інфінітив часто закінчується на <span class="uk">-ти</span>: <span class="uk">читати, писати, працювати, говорити, готувати</span>.</p>
+  <p>У реченні ми зазвичай не використовуємо інфінітив сам по собі. Ми змінюємо дієслово за особою: <span class="uk">я читаю</span>, <span class="uk">він читає</span>, <span class="uk">вони читають</span>.</p>
+  <table class="task-table">
+    <tr><th>Інфінітив</th><th>Я</th><th>Він / вона</th><th>Вони</th><th>Norsk</th></tr>
+    <tr><td><span class="uk">читати</span></td><td><span class="uk">читаю</span></td><td><span class="uk">читає</span></td><td><span class="uk">читають</span></td><td>å lese</td></tr>
+    <tr><td><span class="uk">працювати</span></td><td><span class="uk">працюю</span></td><td><span class="uk">працює</span></td><td><span class="uk">працюють</span></td><td>å jobbe</td></tr>
+    <tr><td><span class="uk">готувати</span></td><td><span class="uk">готую</span></td><td><span class="uk">готує</span></td><td><span class="uk">готують</span></td><td>å lage mat</td></tr>
+    <tr><td><span class="uk">говорити</span></td><td><span class="uk">говорю</span></td><td><span class="uk">говорить</span></td><td><span class="uk">говорять</span></td><td>å snakke</td></tr>
+    <tr><td><span class="uk">їхати</span></td><td><span class="uk">їду</span></td><td><span class="uk">їде</span></td><td><span class="uk">їдуть</span></td><td>å kjøre / reise</td></tr>
+    <tr><td><span class="uk">пити</span></td><td><span class="uk">п’ю</span></td><td><span class="uk">п’є</span></td><td><span class="uk">п’ють</span></td><td>å drikke</td></tr>
+    <tr><td><span class="uk">їсти</span></td><td><span class="uk">їм</span></td><td><span class="uk">їсть</span></td><td><span class="uk">їдять</span></td><td>å spise</td></tr>
+  </table>
+  <div class="tip-mini"><strong>Модель для учнів:</strong> інфінітив = “å-form” på norsk. <span class="uk">читати</span> = å lese. Особова форма = hvem gjør det? <span class="uk">я читаю</span> = jeg leser.</div>
+
+  <h3>Як утворити форму «я»?</h3>
+  <p>Часто ми беремо основу дієслова і додаємо закінчення <span class="uk">-ю</span> або <span class="uk">-у</span>. Але не всі дієслова однакові, тому найкраще спочатку вчити готові корисні форми.</p>
+  <table class="task-table">
+    <tr><th>Тип</th><th>Модель</th><th>Приклади</th></tr>
+    <tr><td>регулярна форма</td><td><span class="uk">-ти → -ю</span></td><td><span class="uk">читати → читаю</span>, <span class="uk">працювати → працюю</span></td></tr>
+    <tr><td>форма з -у</td><td><span class="uk">писати → пишу</span></td><td><span class="uk">Я пишу ручкою.</span></td></tr>
+    <tr><td>коротка особлива форма</td><td>зміна основи</td><td><span class="uk">пити → п’ю</span>, <span class="uk">їсти → їм</span>, <span class="uk">їхати → їду</span></td></tr>
+  </table>
+  <div class="tip-mini"><strong>Не треба запам’ятовувати всі правила одразу.</strong> У цьому файлі важливо бачити дію в реченні: <span class="hvem">я</span> <span class="hva">п’ю</span> <span class="obj">каву</span>, <span class="hvem">він</span> <span class="hva">працює</span> <span class="nar">кухарем</span>.</div>
+</section>
+
+<div class="block-divider"><div class="label">Tekst 1</div><h2>Вранці в Осло</h2></div>
+<section class="task">
+  <div class="task-header"><div class="task-num">1</div><div class="task-title-box"><h2>Les teksten i farger</h2><div class="uk-title">Читайте текст у кольорах</div><div class="task-meta"><span class="pill">читання</span><span class="pill">кольори</span></div></div></div>
+  <div class="reading-card">
+    <h3>Текст 1. Вранці в Осло</h3><div class="subtitle">Følg fargene mens du leser.</div>
+    <div class="audio-box">
+      <div class="audio-title">Audio · Текст 1</div>
+      <p>Lytt til teksten først. Les deretter teksten høyt selv.</p>
+      <audio controls preload="metadata"><source src="audio/01_Oslo.mp3" type="audio/mpeg">Nettleseren din støtter ikke lydavspilling.</audio>
+    </div>
+    <p><span class="obj">Мене</span> <span class="hva">звати</span> <span class="hvem">Анна</span>. <span class="hvem">Я</span> <span class="hva">живу</span> <span class="nar">в Осло</span>.</p>
+    <p><span class="nar">Вранці</span> <span class="hvem">я</span> <span class="hva">п’ю</span> <span class="obj">каву</span> і <span class="hva">їм</span> <span class="obj">хліб із сиром</span>.</p>
+    <p><span class="nar">О восьмій</span> <span class="hvem">я</span> <span class="hva">їду</span> <span class="nar">на роботу автобусом</span>.</p>
+    <p><span class="hvem">Я</span> <span class="hva">працюю</span> <span class="nar">в школі</span>. <span class="hvem">Я</span> <span class="hva">працюю</span> <span class="nar">вчителькою</span>.</p>
+    <p><span class="nar">У школі</span> <span class="hvem">я</span> <span class="hva">пишу</span> <span class="nar">ручкою</span> і <span class="hva">говорю</span> <span class="nar">з колегою</span>.</p>
+    <p><span class="nar">Після роботи</span> <span class="hvem">я</span> <span class="hva">йду</span> <span class="nar">додому пішки</span>.</p>
+  </div>
+  <div class="plain-text"><p><strong>Текст без кольорів:</strong><br>Мене звати Анна. Я живу в Осло. Вранці я п’ю каву і їм хліб із сиром. О восьмій я їду на роботу автобусом. Я працюю в школі. Я працюю вчителькою. У школі я пишу ручкою і говорю з колегою. Після роботи я йду додому пішки.</p></div>
+</section>
+
+<section class="task">
+  <div class="task-header"><div class="task-num">2</div><div class="task-title-box"><h2>Forstå teksten</h2><div class="uk-title">Дайте відповіді</div><div class="task-meta"><span class="pill">розуміння</span></div></div></div>
+  <p class="task-instruction">Svar kort på ukrainsk. <span class="uk-inst">Відповідайте коротко українською.</span></p>
+  <div class="exercise">
+    <div class="ex-row"><div class="ex-num">1.</div><div class="ex-prompt">Де живе Анна? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">2.</div><div class="ex-prompt">Коли Анна п’є каву? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">3.</div><div class="ex-prompt">Чим Анна їде на роботу? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">4.</div><div class="ex-prompt">Ким працює Анна? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">5.</div><div class="ex-prompt">З ким Анна говорить у школі? <input type="text" class="xlong"></div></div>
+  </div>
+  <button class="answer-key-toggle" onclick="toggleAnswer('ans2', this)">Vis fasit ↓</button>
+  <div class="answer-key" id="ans2"><strong>Fasit:</strong> 1. <code>Вона живе в Осло.</code> 2. <code>Вранці.</code> 3. <code>Автобусом.</code> 4. <code>Вчителькою.</code> 5. <code>З колегою.</code></div>
+</section>
+
+<section class="task">
+  <div class="task-header"><div class="task-num">3</div><div class="task-title-box"><h2>Grammatikk i tekst 1</h2><div class="uk-title">Знайдіть форми</div><div class="task-meta"><span class="pill">орудний</span><span class="pill">питання</span></div></div></div>
+  <p class="task-instruction">Finn ordene i teksten. <span class="uk-inst">Знайдіть слова у тексті.</span></p>
+  <table class="task-table">
+    <tr><th>Питання</th><th>Відповідь з тексту</th><th>Norsk</th></tr>
+    <tr><td>Чим?</td><td><input type="text" class="long"></td><td>med buss</td></tr>
+    <tr><td>Чим?</td><td><input type="text" class="long"></td><td>med penn</td></tr>
+    <tr><td>З ким?</td><td><input type="text" class="long"></td><td>med en kollega</td></tr>
+    <tr><td>Ким?</td><td><input type="text" class="long"></td><td>som lærer</td></tr>
+    <tr><td>Де?</td><td><input type="text" class="long"></td><td>in Oslo / at school</td></tr>
+  </table>
+  <button class="answer-key-toggle" onclick="toggleAnswer('ans3', this)">Vis fasit ↓</button>
+  <div class="answer-key" id="ans3"><strong>Fasit:</strong> <code>автобусом</code>, <code>ручкою</code>, <code>з колегою</code>, <code>вчителькою</code>, <code>в Осло / в школі</code>.</div>
+</section>
+
+<div class="block-divider"><div class="label">Tekst 2</div><h2>Увечері в Бергені</h2></div>
+<section class="task">
+  <div class="task-header"><div class="task-num">4</div><div class="task-title-box"><h2>Les teksten i farger</h2><div class="uk-title">Читайте текст у кольорах</div><div class="task-meta"><span class="pill">читання</span><span class="pill">кольори</span></div></div></div>
+  <div class="reading-card">
+    <h3>Текст 2. Увечері в Бергені</h3><div class="subtitle">Legg merke til: ким? з ким? чим?</div>
+    <div class="audio-box">
+      <div class="audio-title">Audio · Текст 2</div>
+      <p>Lytt etter ordene <strong>кухарем</strong>, <strong>з гостями</strong>, <strong>трамваєм</strong>.</p>
+      <audio controls preload="metadata"><source src="audio/02_Bergen.mp3" type="audio/mpeg">Nettleseren din støtter ikke lydavspilling.</audio>
+    </div>
+    <p><span class="hvem">Це Оле</span>. <span class="hvem">Він</span> <span class="hva">живе</span> <span class="nar">в Бергені</span>.</p>
+    <p><span class="nar">Вдень</span> <span class="hvem">Оле</span> <span class="hva">працює</span> <span class="nar">в кафе</span>. <span class="hvem">Він</span> <span class="hva">працює</span> <span class="nar">кухарем</span>.</p>
+    <p><span class="hvem">Він</span> <span class="hva">готує</span> <span class="obj">суп і рибу</span>.</p>
+    <p><span class="hvem">Оле</span> <span class="hva">говорить</span> <span class="nar">з гостями українською і норвезькою</span>.</p>
+    <p><span class="nar">Увечері</span> <span class="hvem">він</span> <span class="hva">їде</span> <span class="nar">додому трамваєм</span>.</p>
+    <p><span class="nar">Вдома</span> <span class="hvem">він</span> <span class="hva">читає</span> <span class="obj">книгу</span> і <span class="hva">п’є</span> <span class="obj">чай</span>.</p>
+  </div>
+  <div class="plain-text"><p><strong>Текст без кольорів:</strong><br>Це Оле. Він живе в Бергені. Вдень Оле працює в кафе. Він працює кухарем. Він готує суп і рибу. Оле говорить з гостями українською і норвезькою. Увечері він їде додому трамваєм. Вдома він читає книгу і п’є чай.</p></div>
+</section>
+
+<section class="task">
+  <div class="task-header"><div class="task-num">5</div><div class="task-title-box"><h2>Forstå teksten</h2><div class="uk-title">Дайте відповіді</div><div class="task-meta"><span class="pill">розуміння</span></div></div></div>
+  <div class="exercise">
+    <div class="ex-row"><div class="ex-num">1.</div><div class="ex-prompt">Де живе Оле? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">2.</div><div class="ex-prompt">Коли Оле працює в кафе? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">3.</div><div class="ex-prompt">Ким працює Оле? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">4.</div><div class="ex-prompt">З ким Оле говорить? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">5.</div><div class="ex-prompt">Чим Оле їде додому? <input type="text" class="xlong"></div></div>
+  </div>
+  <button class="answer-key-toggle" onclick="toggleAnswer('ans5', this)">Vis fasit ↓</button>
+  <div class="answer-key" id="ans5"><strong>Fasit:</strong> 1. <code>Він живе в Бергені.</code> 2. <code>Вдень.</code> 3. <code>Кухарем.</code> 4. <code>З гостями.</code> 5. <code>Трамваєм.</code></div>
+</section>
+
+<section class="task">
+  <div class="task-header"><div class="task-num">6</div><div class="task-title-box"><h2>Farger i setningen</h2><div class="uk-title">Хто? Що робить? Що? Де?</div><div class="task-meta"><span class="pill">аналіз речення</span></div></div></div>
+  <p class="task-instruction">Skriv riktig spørsmål under hvert ord. <span class="uk-inst">Напишіть питання: ХТО? ЩО РОБИТЬ? ЩО? КОЛИ/ДЕ/ЧИМ/З КИМ?</span></p>
+  <table class="task-table">
+    <tr><th>Речення</th><th>Оле</th><th>готує</th><th>суп і рибу</th></tr>
+    <tr><td>Питання</td><td><input type="text" class="short"></td><td><input type="text" class="short"></td><td><input type="text" class="short"></td></tr>
+    <tr><th>Речення</th><th>Оле</th><th>говорить</th><th>з гостями</th></tr>
+    <tr><td>Питання</td><td><input type="text" class="short"></td><td><input type="text" class="short"></td><td><input type="text" class="short"></td></tr>
+  </table>
+  <button class="answer-key-toggle" onclick="toggleAnswer('ans6', this)">Vis fasit ↓</button>
+  <div class="answer-key" id="ans6"><strong>Fasit:</strong> <code>Оле = ХТО?</code>, <code>готує/говорить = ЩО РОБИТЬ?</code>, <code>суп і рибу = ЩО?</code>, <code>з гостями = З КИМ?</code></div>
+</section>
+
+<div class="block-divider"><div class="label">Tekst 3</div><h2>Субота в Тромсе</h2></div>
+<section class="task">
+  <div class="task-header"><div class="task-num">7</div><div class="task-title-box"><h2>Les teksten i farger</h2><div class="uk-title">Читайте текст у кольорах</div><div class="task-meta"><span class="pill">читання</span><span class="pill">кольори</span></div></div></div>
+  <div class="reading-card">
+    <h3>Текст 3. Субота в Тромсе</h3><div class="subtitle">Legg merke til: телефоном, карткою, автобусом.</div>
+    <div class="audio-box">
+      <div class="audio-title">Audio · Текст 3</div>
+      <p>Lytt etter instrumentalformene <strong>телефоном</strong>, <strong>карткою</strong>, <strong>автобусом</strong>.</p>
+      <audio controls preload="metadata"><source src="audio/03_Tromse.mp3" type="audio/mpeg">Nettleseren din støtter ikke lydavspilling.</audio>
+    </div>
+    <p><span class="nar">Сьогодні субота</span>. <span class="hvem">Марія</span> <span class="hva">не працює</span>.</p>
+    <p><span class="hvem">Вона</span> <span class="hva">живе</span> <span class="nar">в Тромсе</span>.</p>
+    <p><span class="nar">Вранці</span> <span class="hvem">Марія</span> <span class="hva">говорить</span> <span class="nar">з мамою телефоном</span>.</p>
+    <p><span class="nar">Потім</span> <span class="hvem">вона</span> <span class="hva">йде</span> <span class="nar">в магазин з подругою</span>.</p>
+    <p><span class="nar">У магазині</span> <span class="hvem">Марія</span> <span class="hva">платить</span> <span class="nar">карткою</span>.</p>
+    <p><span class="nar">Вдень</span> <span class="hvem">вона</span> <span class="hva">їде</span> <span class="nar">автобусом до центру</span>.</p>
+    <p><span class="nar">Увечері</span> <span class="hvem">Марія</span> <span class="hva">вечеряє</span> <span class="nar">з другом</span>.</p>
+  </div>
+  <div class="plain-text"><p><strong>Текст без кольорів:</strong><br>Сьогодні субота. Марія не працює. Вона живе в Тромсе. Вранці Марія говорить з мамою телефоном. Потім вона йде в магазин з подругою. У магазині Марія платить карткою. Вдень вона їде автобусом до центру. Увечері Марія вечеряє з другом.</p></div>
+</section>
+
+<section class="task">
+  <div class="task-header"><div class="task-num">8</div><div class="task-title-box"><h2>Forstå teksten</h2><div class="uk-title">Дайте відповіді</div><div class="task-meta"><span class="pill">розуміння</span></div></div></div>
+  <div class="exercise">
+    <div class="ex-row"><div class="ex-num">1.</div><div class="ex-prompt">Коли Марія не працює? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">2.</div><div class="ex-prompt">Де живе Марія? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">3.</div><div class="ex-prompt">З ким Марія говорить вранці? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">4.</div><div class="ex-prompt">Чим Марія платить у магазині? <input type="text" class="xlong"></div></div>
+    <div class="ex-row"><div class="ex-num">5.</div><div class="ex-prompt">Коли Марія вечеряє з другом? <input type="text" class="xlong"></div></div>
+  </div>
+  <button class="answer-key-toggle" onclick="toggleAnswer('ans8', this)">Vis fasit ↓</button>
+  <div class="answer-key" id="ans8"><strong>Fasit:</strong> 1. <code>У суботу.</code> 2. <code>Вона живе в Тромсе.</code> 3. <code>З мамою.</code> 4. <code>Карткою.</code> 5. <code>Увечері.</code></div>
+</section>
+
+<section class="task">
+  <div class="task-header"><div class="task-num">9</div><div class="task-title-box"><h2>Орудний: чим? з ким?</h2><div class="uk-title">Вставте правильну форму</div><div class="task-meta"><span class="pill">граматика</span></div></div></div>
+  <p class="task-instruction">Bruk ordene i ordbokform. <span class="uk-inst">Використайте слова у дужках.</span></p>
+  <div class="model"><div class="label">Modell</div><div class="uk-text">Я їду (автобус) → Я їду автобусом.</div></div>
+  <div class="exercise">
+    <div class="ex-row"><div class="ex-num">1.</div><div class="ex-prompt">Анна їде на роботу <input type="text" class="short">. <em>(автобус)</em></div></div>
+    <div class="ex-row"><div class="ex-num">2.</div><div class="ex-prompt">Оле їде додому <input type="text" class="short">. <em>(трамвай)</em></div></div>
+    <div class="ex-row"><div class="ex-num">3.</div><div class="ex-prompt">Я пишу <input type="text" class="short">. <em>(ручка)</em></div></div>
+    <div class="ex-row"><div class="ex-num">4.</div><div class="ex-prompt">Марія говорить з мамою <input type="text" class="short">. <em>(телефон)</em></div></div>
+    <div class="ex-row"><div class="ex-num">5.</div><div class="ex-prompt">Марія платить <input type="text" class="short">. <em>(картка)</em></div></div>
+    <div class="ex-row"><div class="ex-num">6.</div><div class="ex-prompt">Анна говорить <input type="text" class="short">. <em>(з колега)</em></div></div>
+    <div class="ex-row"><div class="ex-num">7.</div><div class="ex-prompt">Марія вечеряє <input type="text" class="short">. <em>(з друг)</em></div></div>
+  </div>
+  <button class="answer-key-toggle" onclick="toggleAnswer('ans9', this)">Vis fasit ↓</button>
+  <div class="answer-key" id="ans9"><strong>Fasit:</strong> 1. <code>автобусом</code> 2. <code>трамваєм</code> 3. <code>ручкою</code> 4. <code>телефоном</code> 5. <code>карткою</code> 6. <code>з колегою</code> 7. <code>з другом</code></div>
+</section>
+
+<section class="task">
+  <div class="task-header"><div class="task-num">10</div><div class="task-title-box"><h2>Fonetikk og uttale</h2><div class="uk-title">Фонетика: читайте вголос</div><div class="task-meta"><span class="pill">фонетика</span></div></div></div>
+  <p class="task-instruction">Les ordene høyt tre ganger. Legg merke til endelser og vanskelige lyder. <span class="uk-inst">Прочитайте слова вголос тричі.</span></p>
+  <div class="phonetics">
+    <div class="phon-card"><h4>1. Instrumental -ом</h4><p><span class="uk">автобусом · трамваєм · телефоном</span><br><em>Lang, rolig slutt: -ом / -єм.</em></p></div>
+    <div class="phon-card"><h4>2. Instrumental -ою</h4><p><span class="uk">ручкою · карткою · з колегою · з мамою</span><br><em>Ikke sluk -ою. Si den som to små trinn.</em></p></div>
+    <div class="phon-card"><h4>3. Апостроф</h4><p><span class="uk">п’ю</span><br><em>p + ju. Ikke “pu”.</em></p></div>
+    <div class="phon-card"><h4>4. М’які звуки</h4><p><span class="uk">вчителькою · українською · норвезькою</span><br><em>Les sakte. Finn -ськ- og -льк-.</em></p></div>
+  </div>
+  <div class="tip-mini"><strong>Leseøvelse:</strong> Les først bare blå ord i tekstene. Deretter leser du bare grønne verb. Til slutt leser du hele teksten.</div>
+</section>
+
+<section class="task">
+  <div class="task-header"><div class="task-num">11</div><div class="task-title-box"><h2>Skriv om deg selv</h2><div class="uk-title">Напишіть про себе</div><div class="task-meta"><span class="pill">письмо</span></div></div></div>
+  <p class="task-instruction">Write 5–6 simple sentences. Use at least three instrumental phrases. <span class="uk-inst">Напишіть 5–6 простих речень. Використайте мінімум три фрази в орудному відмінку.</span></p>
+  <div class="word-bank"><span class="pill">автобусом</span><span class="pill">трамваєм</span><span class="pill">машиною</span><span class="pill">ручкою</span><span class="pill">телефоном</span><span class="pill">карткою</span><span class="pill">з другом</span><span class="pill">з подругою</span><span class="pill">з колегою</span></div>
+  <textarea placeholder="Мене звати... Я живу... Вранці я... Я їду... Я говорю... Я плачу..."></textarea>
+  <div class="tip-mini"><strong>Шаблон:</strong> Мене звати ____. Я живу в ____. Вранці я ____. Я їду _____. Я говорю _____. Я плачу _____.</div>
+</section>
+
+<section class="vocab">
+  <h2>Міні-словник · ordliste</h2>
+  <h3>Дієслова</h3>
+  <table><tr><th>Українська</th><th>Norsk</th></tr><tr><td class="uk">жити</td><td>å bo</td></tr><tr><td class="uk">пити</td><td>å drikke</td></tr><tr><td class="uk">їсти</td><td>å spise</td></tr><tr><td class="uk">їхати</td><td>å kjøre / reise med transport</td></tr><tr><td class="uk">працювати</td><td>å jobbe</td></tr><tr><td class="uk">писати</td><td>å skrive</td></tr><tr><td class="uk">говорити</td><td>å snakke</td></tr><tr><td class="uk">готувати</td><td>å lage mat</td></tr><tr><td class="uk">читати</td><td>å lese</td></tr><tr><td class="uk">платити</td><td>å betale</td></tr><tr><td class="uk">вечеряти</td><td>å spise middag</td></tr></table>
+  <h3>Орудний відмінок у текстах</h3>
+  <table><tr><th>Українська</th><th>Norsk</th><th>Питання</th></tr><tr><td class="uk">автобусом</td><td>med buss</td><td>чим?</td></tr><tr><td class="uk">трамваєм</td><td>med trikk</td><td>чим?</td></tr><tr><td class="uk">ручкою</td><td>med penn</td><td>чим?</td></tr><tr><td class="uk">телефоном</td><td>på telefon / med telefon</td><td>чим?</td></tr><tr><td class="uk">карткою</td><td>med kort</td><td>чим?</td></tr><tr><td class="uk">з колегою</td><td>med en kollega</td><td>з ким?</td></tr><tr><td class="uk">з мамою</td><td>med mamma</td><td>з ким?</td></tr><tr><td class="uk">з другом</td><td>med en venn</td><td>з ким?</td></tr><tr><td class="uk">вчителькою</td><td>som lærer</td><td>ким?</td></tr><tr><td class="uk">кухарем</td><td>som kokk</td><td>ким?</td></tr></table>
+</section>
+
+<footer><div class="mantra">Готово до самостійної роботи.</div><p>Читання · розуміння · граматика · фонетика</p></footer>
+</div>
+
+<div class="floating-keyboard" id="ukKeyboard"><button class="keyboard-toggle" type="button" onclick="toggleKeyboard()">⌨ Українська клавіатура</button><div class="keyboard-panel" id="keyboardPanel"><div class="keyboard-help">Klikk først i et skrivefelt. Velg deretter ukrainske bokstaver her.</div><div id="keyboardRows"></div></div></div>
+
+<script>
+function toggleAnswer(id, btn){const el=document.getElementById(id);if(!el||!btn)return;if(el.classList.contains('shown')){el.classList.remove('shown');btn.textContent=btn.textContent.replace('Skjul','Vis').replace('↑','↓')}else{el.classList.add('shown');btn.textContent=btn.textContent.replace('Vis','Skjul').replace('↓','↑')}}
+document.querySelectorAll('input[type="text"], textarea').forEach((el,i)=>{el.addEventListener('focus',()=>setActiveTextField(el));el.addEventListener('click',()=>setActiveTextField(el));const key='lese_farger_inst_'+(el.name||'i'+i);try{const saved=sessionStorage.getItem(key);if(saved)el.value=saved;el.addEventListener('input',()=>{try{sessionStorage.setItem(key,el.value)}catch(e){}})}catch(e){}});
+let activeTextField=null;let keyboardUppercase=false;const ukrainianKeyboardRows=[['а','б','в','г','ґ','д','е','є','ж','з'],['и','і','ї','й','к','л','м','н','о','п'],['р','с','т','у','ф','х','ц','ч','ш','щ'],['ь','ю','я']];
+function renderKeyboard(){const holder=document.getElementById('keyboardRows');if(!holder)return;holder.innerHTML='';ukrainianKeyboardRows.forEach(row=>{const rowEl=document.createElement('div');rowEl.className='keyboard-row';row.forEach(letter=>{const button=document.createElement('button');button.type='button';const char=keyboardUppercase?letter.toUpperCase():letter;button.textContent=char;button.addEventListener('click',()=>insertChar(char));rowEl.appendChild(button)});holder.appendChild(rowEl)});const controlRow=document.createElement('div');controlRow.className='keyboard-row';const shiftButton=document.createElement('button');shiftButton.type='button';shiftButton.className='keyboard-wide';shiftButton.textContent=keyboardUppercase?'а/А':'А/а';shiftButton.addEventListener('click',toggleKeyboardCase);controlRow.appendChild(shiftButton);const spaceButton=document.createElement('button');spaceButton.type='button';spaceButton.className='keyboard-wide';spaceButton.textContent='пробіл';spaceButton.addEventListener('click',()=>insertChar(' '));controlRow.appendChild(spaceButton);['.',',','?','!','’','-'].forEach(symbol=>{const button=document.createElement('button');button.type='button';button.textContent=symbol;button.addEventListener('click',()=>insertChar(symbol));controlRow.appendChild(button)});const deleteButton=document.createElement('button');deleteButton.type='button';deleteButton.className='keyboard-wide';deleteButton.textContent='⌫';deleteButton.addEventListener('click',deleteChar);controlRow.appendChild(deleteButton);holder.appendChild(controlRow)}
+function setActiveTextField(el){activeTextField=el} function toggleKeyboard(){const panel=document.getElementById('keyboardPanel');if(!panel)return;panel.classList.toggle('open')} function toggleKeyboardCase(){keyboardUppercase=!keyboardUppercase;renderKeyboard()}
+function insertChar(char){if(!activeTextField)return;const start=activeTextField.selectionStart??activeTextField.value.length;const end=activeTextField.selectionEnd??activeTextField.value.length;const value=activeTextField.value;activeTextField.value=value.slice(0,start)+char+value.slice(end);activeTextField.focus();activeTextField.selectionStart=activeTextField.selectionEnd=start+char.length;activeTextField.dispatchEvent(new Event('input'))}
+function deleteChar(){if(!activeTextField)return;const start=activeTextField.selectionStart??activeTextField.value.length;const end=activeTextField.selectionEnd??activeTextField.value.length;const value=activeTextField.value;if(start!==end){activeTextField.value=value.slice(0,start)+value.slice(end);activeTextField.selectionStart=activeTextField.selectionEnd=start}else if(start>0){activeTextField.value=value.slice(0,start-1)+value.slice(end);activeTextField.selectionStart=activeTextField.selectionEnd=start-1}activeTextField.focus();activeTextField.dispatchEvent(new Event('input'))}
+renderKeyboard();
+</script>
+</body>
+</html>
